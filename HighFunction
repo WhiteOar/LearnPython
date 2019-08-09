@@ -41,3 +41,5 @@ print(list(b))
 print(list(map(lambda x, y :(x,y), range(5), range(5))))
 
 
+'''a single range to ge '''
+
