@@ -1,0 +1,50 @@
+#python 装饰器
+def add1(x, y):
+	return x*y
+
+def add2(x, y, *args, z):
+	return x+y+z
+
+def logger(fn, *args, **kwargs):
+	print('begin')
+	x = fn(*args, **kwargs)
+	print('end')
+	return x
+
+def copy_properties(src):
+	def wrapper(dst):
+		dst.__name__ = src.__name__
+		dst.__doc__ = src.__doc__
+		dst.__qualname__ = src.__qualname__
+		return dst
+	return wrapper
+#柯里化
+def logger(fn):
+	@copy_properties(fn)  #带参装饰器
+	def _logger(*args, **kwargs):#可变参数
+		'''ddd'''
+		print('begin')
+		x = fn(*args, **kwargs) #参数解构
+		print('end')
+		return x
+	return _logger
+
+#print(logger(add2, 4,5, z=3))
+
+@logger#等价于add1 = logger(add1)
+def add3(x, y):
+	''' add3 '''
+	return x-y
+
+def add4(x, y):
+	'''a fuction
+		doc
+	'''
+	return x+y
+
+#文档字符串
+print(add3.__doc__)
+
+#加上装饰器后，文档会变成装饰器的文档字符串,name等属性都会被包装成装饰器函数的
+
+
