@@ -1,0 +1,43 @@
+#高阶函数y=g(f(x))，接受一个或多个函数做参数，输出一个函数
+def counter(base):
+	def inc(step=1):
+		nonlocal base
+		base += step
+		return base
+	return inc
+
+foo = counter(5)
+print(foo())
+
+#自定义sort函数，filter更常见
+
+def sort(iterable, key = None, reverse = False):
+	ret = []
+	if key is None:
+		key = lambda a,b:a>b
+
+	for x in iterable:
+		for i, y in enumerate(ret):
+			flag = key(x, y) if reverse else key(y,x)
+			if flag:
+				ret.insert(i,x)
+				break
+		else:
+			ret.append(x)
+	return ret
+
+print(sorted([2, 1,3], key=lambda x:6-x))
+
+a = filter(lambda x: x%3==0, [1, 9 ,55, -3, 78,28])
+
+dic = {'key':1, 'cixo':2, 'J':4}
+
+b = filter(lambda x: x[1]>2, dic.items())
+
+print(list(b))
+
+
+
+print(list(map(lambda x, y :(x,y), range(5), range(5))))
+
+
